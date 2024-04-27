@@ -27,7 +27,51 @@ ipForm.addEventListener("submit", async (event) => {
     );
 
     const responseData = await response.json();
-    responseDiv.textContent = responseData.message; // Assuming the API response has a message property
+
+    const successDiv = document.createElement("div");
+    successDiv.classList.add("success");
+
+    if (responseData.success) {
+      const { dest, anycast } = responseData.result;
+      successDiv.innerHTML = `<b>Destination:</b> ${dest}`;
+
+      // Highlight Anycast status
+      const anycastSpan = document.createElement("span");
+      anycastSpan.classList.add("anycast");
+      anycastSpan.textContent = anycast ? " (Anycast)" : " (Unicast)";
+      successDiv.appendChild(anycastSpan);
+
+      const detailsContainer = document.createElement("div");
+      detailsContainer.classList.add("details-container");
+
+      if (responseData.result.details) {
+        responseData.result.details.forEach((details) => {
+          const detailsDiv = document.createElement("div");
+          detailsDiv.innerHTML = `<h3>Connection Details</h3>`;
+          detailsDiv.classList.add("details");
+          const detailItem = document.createElement("p");
+          detailItem.innerHTML = `This: ${details.this.toFixed(
+            2,
+          )} ms<br>Remote: ${details.remote.toFixed(
+            2,
+          )} ms<br>Theoretical Latency: ${details.theortical_latency.toFixed(
+            2,
+          )} ms`;
+          detailsDiv.appendChild(detailItem);
+          detailsContainer.appendChild(detailsDiv);
+        });
+      } else {
+        detailsContainer.textContent =
+          "No details available for this destination.";
+      }
+
+      successDiv.appendChild(detailsContainer);
+      responseDiv.appendChild(successDiv);
+    } else {
+      successDiv.textContent =
+        responseData.message || responseData.err || "Error: Unknown response.";
+      responseDiv.appendChild(successDiv);
+    }
   } catch (error) {
     console.error(error);
     responseDiv.textContent = "Error: Something went wrong.";

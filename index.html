@@ -1,24 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IP & Port Checker</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="container">
-    <h1>IP & Port Checker</h1>
-    <form id="ip-port-form">
-      <label for="ip">Enter IP Address:</label>
-      <input type="text" id="ip" name="ip" placeholder="e.g. 1.1.1.1" required>
-      <label for="port">Port (Optional):</label>
-      <input type="number" id="port" name="port" min="1" max="65535" value="80">
-      <button type="submit">Check</button>
-    </form>
-    <div id="response"></div>
-  </div>
-  <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anycast detector</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Anycast detector</h1>
+      <form id="ip-port-form">
+        <label for="ip">Enter IP Address:</label>
+        <input
+          type="text"
+          id="ip"
+          name="ip"
+          placeholder="e.g. 1.1.1.1"
+          required
+        />
+        <label for="port">Port (Optional, We are using tcp ping!):</label>
+        <input
+          type="number"
+          id="port"
+          name="port"
+          min="1"
+          max="65535"
+          value="80"
+        />
+        <button type="submit">Check</button>
+      </form>
+      <div id="response"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
 </html>
-
