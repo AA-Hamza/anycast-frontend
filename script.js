@@ -32,13 +32,13 @@ ipForm.addEventListener("submit", async (event) => {
     successDiv.classList.add("success");
 
     if (responseData.success) {
-      const { dest, anycast } = responseData.result;
+      const { dest, port, anycast } = responseData.result;
       successDiv.innerHTML = `<b>Destination:</b> ${dest}`;
 
       // Highlight Anycast status
       const anycastSpan = document.createElement("span");
       anycastSpan.classList.add("anycast");
-      anycastSpan.textContent = anycast ? " (Anycast)" : " (Unicast)";
+      anycastSpan.textContent = anycast ? " (Anycast)" : " (Not anycast)";
       successDiv.appendChild(anycastSpan);
 
       const detailsContainer = document.createElement("div");
@@ -56,7 +56,7 @@ ipForm.addEventListener("submit", async (event) => {
             2,
           )} ms<br>Theoretical Latency: ${details.theortical_latency.toFixed(
             2,
-          )} ms`;
+          )} ms<br>Port: ${port}`;
           detailsDiv.appendChild(detailItem);
           detailsContainer.appendChild(detailsDiv);
         });
